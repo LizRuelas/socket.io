@@ -38,8 +38,8 @@ state = {
 			'peli2',
 		],
 		tally: {
-			peli1: 0, 
-			peli2: 0, 
+			peli1: 4, 
+			peli2: 1, 
 		}
 	}	
 };
@@ -60,9 +60,19 @@ function next(state) {
 		} 
 	});	
 
-	
-
 }
+
+function getWinner(state){
+	if (state.vote.tally.peli1 > state.vote.tally.peli2) {
+		return [state.vote.tally.peli1];
+	} else if (state.vote.tally.peli1 < state.vote.tally.peli2){
+		return [state.vote.tally.peli2];
+	} else {
+		return [state.vote.tally.peli1,state.vote.tally.peli2];
+	}
+	
+}
+console.log(getWinner(state));
 
 
 
@@ -83,4 +93,4 @@ function vote(state, select) {
 	}) 
 	
 };    
-console.log(vote(state,'peli1'));
+

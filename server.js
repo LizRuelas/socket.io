@@ -20,30 +20,33 @@ server.listen(process.env.PORT || 8080, function() {
 });*/
 
 var state = {
-	entries: [
-		'peli1',
-		'peli2',
-		'peli3',
+	entries : [
+		"peli1",
+		"peli2",
+		"peli3",
+		"peli4",
+		"peli5",
+		"peli6",
 	],
-	
 };
-
 state = {
-	entries: [
-		'peli3',
+	entries : [
+		"peli3",
+		"peli4",
+		"peli5",
+		"peli6",
 	],
-	vote: {
+	vote : {
 		pair : [
-			'peli1',
-			'peli2',
+			"peli1",
+			"peli2",
 		],
-		tally: {
-			peli1: 4, 
-			peli2: 1, 
+		tally : {
+			peli1 : 4,
+			peli2 : 8,
 		}
-	}	
+	}
 };
-
 function next(state) {
 	var _entries = state.entries.slice();
 
@@ -52,29 +55,24 @@ function next(state) {
 	var votes = [];
 	votes.push(votea);
 	votes.push(voteb);
+	var win = _entries;
+
+	if (state.vote.tally.peli1 > state.vote.tally.peli2) {
+		win.push('peli1');
+	} else if (state.vote.tally.peli1 < state.vote.tally.peli2){
+		win.push('peli2');
+	} else {
+		win.push('peli1','peli2');
+	}
 
 	return Object.assign({}, state, {
 		entries : _entries,
 		vote: {
 			pair:votes,
 		} 
-	});	
-
+	});
 }
-
-function getWinner(state){
-	if (state.vote.tally.peli1 > state.vote.tally.peli2) {
-		return [state.vote.tally.peli1];
-	} else if (state.vote.tally.peli1 < state.vote.tally.peli2){
-		return [state.vote.tally.peli2];
-	} else {
-		return [state.vote.tally.peli1,state.vote.tally.peli2];
-	}
-	
-}
-console.log(getWinner(state));
-
-
+console.log(next(state));
 
 function vote(state, select) {
 	var _vote = Object.assign({}, state.vote);
@@ -91,6 +89,13 @@ function vote(state, select) {
 	return Object.assign({}, state , {
 		vote: _vote
 	}) 
-	
-};    
+};
+
+console.log(vote(state,'peli1'));
+
+
+
+
+
+
 

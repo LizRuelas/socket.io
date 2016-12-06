@@ -28,6 +28,12 @@ function getWinner(vote) {
 function next(state) {
 	var _entries = state.entries.concat(getWinner(state.vote));
 
+	if (_entries.length === 1) {
+		return Object.assign({}, state, {
+			winner: _entries[0],
+		})
+	}
+
 	var pair = _entries.splice(0, 2);
 
 	return Object.assign({}, state, {
